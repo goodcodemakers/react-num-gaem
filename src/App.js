@@ -10,25 +10,43 @@ function App() {
   const [answer, setAnswer] = useState(0); //정답갯수
   const [wronganswer, setWronganswer] = useState(0); //오답갯수
 
+  // let numEX = 1234 + "";
+  // let b = [...numEX];
+  // let ggg
+  // for (let num of b) {
+  //   ggg += Number(num);
+  // }
+  // console.log(ggg);
   //랜덤숫자 생성함수
   const randomNum = () => {
     let n1 = Math.floor(Math.random() * 99);
     let n2 = Math.floor(Math.random() * 99);
-    console.log(n1 + n2);
-
+    // console.log(n1 + n2);
     setNum1(n1);
     setNum2(n2);
   };
+
   //앱이 처음시작될때 문제를 출력하기위하여
   useEffect(() => {
     randomNum();
   }, []);
+  let counter = 0;
   const passcheck = () => {
+    randomNum();
     //사용자 입력값과 더학 값이 일치하면 정답->정답 ++
-    if (val == num1 + num2) {
+    if (num1 + num2 === Number(val)) {
+      return setAnswer(answer + 1);
     } else {
+      return setWronganswer(wronganswer + 1);
     }
+    counter++;
   };
+
+  let per = (answer / (answer + wronganswer)) * 100;
+  if (answer == 0 && wronganswer == 0) {
+    per = 0;
+  }
+
   return (
     <div className="App container text-center">
       <h1>더하기 게임</h1>
@@ -44,22 +62,40 @@ function App() {
           size="3"
           value={val}
           maxLength={3}
+          onKeyDown={(e) => {
+            if (e.keyCode === 13) {
+              console.log("눌려지는중");
+              passcheck();
+            }
+          }}
           onInput={(e) => {
             console.log("입력중", e.target.value);
-            setVal(e.target.value);
+
+            if (isNaN(e.target.value)) {
+              // 문자이면
+              setVal("");
+            } else {
+              // 숫자이면
+
+              setVal(e.target.value);
+            }
           }}
         />
       </div>
       <p>
         정답수 : {answer} ,오답수 :{wronganswer}
       </p>
+      <p>정답률 : {Math.floor(per)}%</p>
+
       <button
         className="btn btn-primary"
         onClick={(e) => {
           e.target.innerText = "정답제출";
-          passcheck(); //게임판정
           console.log("확인");
+
           randomNum();
+          setVal("");
+          passcheck(); //게임판정
         }}
       >
         시작
