@@ -2,6 +2,9 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+## 리엑트를 기반으로 한 숫자맞추기 게임이며 1~99의 숫자의 두합을 구하는 게임이다 .
+useEffect,useState를 사용하여 만들었으며 도중에 알게된것은 useRef라는 훅이 있고 이훅을 사용하게 되면 dom을 사용하는것 과 마찬가지의 의미를 가지게 되며 불필요한 랜더링을 줄일수 있게 된다 . 즉 메모리 감소에 좋다
 ## Available Scripts
 
 In the project directory, you can run:
